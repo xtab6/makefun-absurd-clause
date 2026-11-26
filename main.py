@@ -26,6 +26,10 @@ def main() -> int:
     if text != text.strip() or "\n" in text:
         print("entry must be a single clean line", file=sys.stderr)
         return 1
+    # Self-check: exactly one sentence, ending with a period, no double spaces.
+    if not text.endswith(".") or "  " in text or text.count(".") != 1:
+        print("entry must be a single sentence ending with a period", file=sys.stderr)
+        return 1
     # Clean only the contents of the output folder, never the folder itself.
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     for name in os.listdir(OUTPUT_DIR):
